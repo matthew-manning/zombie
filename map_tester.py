@@ -1,14 +1,18 @@
 import pygame
 import map_class
 import player_class
+import commands
 
 map_1 = map_class.map(100,100)
-map_1.gen_map(20)
+
+monster_list = [player_class.zombie]
+map_1.gen_map(1, monster_list, 3)
+
 screen = pygame.display.set_mode((625,625))
 player_1 = player_class.player()
 
 map_1.spawn_player(player_1)
-
+player_1.weapons = ["claws","tester melee"]
 
 
 while 1:
@@ -18,8 +22,10 @@ while 1:
     
     command =  raw_input("<-->")
     
-    if command in ("n","ne","e","se","nw","s","sw","w","sw"):
-        
-        map_1.move_player(player_1, command)
+    if command == "quit":
+        print "quiting...."
+        break
+    
+    commands.commands(map_1, player_1, command)
     
         

@@ -1,0 +1,22 @@
+v 0
+
+current fetures:
+
+player movement.
+player attack.
+
+walls.
+one type of zombie(imobile).
+random map gen.
+
+Commands:
+
+movement; direction s,se,nw,etc 
+followed by distance, distance is one if not specifed
+
+sw 3 == south-west 3 squares
+e == east 1 square
+
+attacks; atk followed by weapon number(1 or 2) followed by target square(letter first)
+
+atk 1 f12

@@ -1,6 +1,7 @@
 import random
 import pygame
 from seg_array_class import *
+import copy
 
 class square():
     normal_img = pygame.image.load("graphics/open.png")
@@ -46,7 +47,13 @@ class map():
                     self.squares.set_val( x, y, square(True) )
                     
                     #monster spawning
-                
+                    if random.randint(0,100) <= monster_prob:
+                        #if a monster spawns
+                        monster_index = random.randint(0,len(monster_list)-1)
+                        #choosing which monster to spawn, weight this some time soonish
+                        spawn_square = self.squares.get_val( x, y)
+                        spawn_square.creture = monster_list[monster_index](x,y)
+                        
                 
                 
     def draw(self, player, screen):
@@ -75,8 +82,6 @@ class map():
                 
     
     def spawn_player(self, player):
-
-
             
             for x in range(1, self.size_x) :
                 for y in range(1, self.size_y):
@@ -85,17 +90,23 @@ class map():
                     
                     if current_square.passable:
                         current_square.creture = player
-                        
-                        self.scroll_x = x - 12
-                        self.scroll_y = y - 12
-                        
+                    
                         player.pos_x = x
                         player.pos_y = y
+                                  
+
+                        self.scroll_x = x - 12
+                        self.scroll_y =y - 12
                         
+                        if self.scroll_x < 0:
+                            self.scroll_x = 0
+                        if self.scroll_y < 0:
+                            self.scroll_y = 0
                         return "player spawned"
             
             return "no place for player"
-    
+                              
+            
     def move_creture(self, creture, heading):
         ##creture and players use this function
         
