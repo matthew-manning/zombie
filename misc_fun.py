@@ -42,3 +42,14 @@ def check_letters(string):
         return False
     
     return True
+
+###################################################
+
+def get_great_or_eq(list_in, val):
+    return_list = []
+    
+    for i in list_in:
+        if i >= val:
+            return_list.append(i)
+    
+    return return_list

@@ -5,7 +5,7 @@ import commands
 
 map_1 = map_class.map(100,100)
 
-monster_list = [player_class.zombie]
+monster_list = {21:player_class.zombie, 25:player_class.chest_armour_zombie}
 map_1.gen_map(1, monster_list, 3)
 
 screen = pygame.display.set_mode((625,625))

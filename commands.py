@@ -35,14 +35,12 @@ def commands(map_in, player_in, command):
         ###################################################################attacking
         elif command_id == "atk":
             ###
-            print 'inside if command_id == "attack" '##debug
             
             weapon_used = command[4]
             target_square = misc_fun.get_until_space(command,6)
             
             if ( weapon_used in ("1", "2") ) and (misc_fun.check_letters(target_square[0])) and (misc_fun.check_int(target_square[1:])):
                 
-                print "inside if weapon used == 1 or 2 , etc"#debug
                 weapon_used = int(weapon_used)-1
                 #-1 convets to indexing int
                 

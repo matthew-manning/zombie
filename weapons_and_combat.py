@@ -66,9 +66,6 @@ def attack_melee(attacker, weapon ,target, map_in):
     
     roll = d12()
     
-    print "modifier is ",modifier
-    print "target val is ",attacker.cc+modifier +weapon_dict[weapon]["accuracy"]
-    
     if roll <= attacker.cc+modifier +weapon_dict[weapon]["accuracy"]:
         #if attack hit
         
@@ -77,7 +74,7 @@ def attack_melee(attacker, weapon ,target, map_in):
         if roll == 1:
             hit_type = "critcal hit"
         
-        target_effective_armour = 1 - target.armour["chest"]*2/8 - target.armour["halmet"]*1/8 -target.armour["legs"]*1/8 + weapon_dict[weapon]["AP"]
+        target_effective_armour = target.armour_val+ weapon_dict[weapon]["AP"]
         
         if target.armour["shield"]:
             target_effective_armour -= 1/8

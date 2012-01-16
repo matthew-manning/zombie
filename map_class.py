@@ -2,6 +2,9 @@ import random
 import pygame
 from seg_array_class import *
 import copy
+import armour
+import misc_fun
+import time
 
 class square():
     normal_img = pygame.image.load("graphics/open.png")
@@ -46,13 +49,21 @@ class map():
                     #normal square
                     self.squares.set_val( x, y, square(True) )
                     
+                    
                     #monster spawning
                     if random.randint(0,100) <= monster_prob:
                         #if a monster spawns
-                        monster_index = random.randint(0,len(monster_list)-1)
-                        #choosing which monster to spawn, weight this some time soonish
                         spawn_square = self.squares.get_val( x, y)
+                        
+                        max_key = max(monster_list.keys())
+                        monster_int = random.randint(0, max_key)
+                        
+                        
+                        monster_index = min(misc_fun.get_great_or_eq(monster_list.keys(), monster_int))
+                        
                         spawn_square.creture = monster_list[monster_index](x,y)
+                        
+                        
                         
                 
                 
@@ -74,10 +85,16 @@ class map():
                 else:
                     #open
                     screen.blit(square.normal_img, (25 + 25 * x, 25 + 25 * y ))
-                    
+                
+                if current_square.item:
+                    screen.blit(armour.item_images[current_square.item], (25 + 25 * x, 25 + 25 * y ))
+                
                 if current_square.creture:
                     #if creture != None
                     screen.blit(current_square.creture.avatar, (25 + 25 * x, 25 + 25 * y ))
+                    
+                
+                    
 
                 
     
@@ -162,6 +179,7 @@ class map():
             
             if return_val == "failed":
                 break
+            
         
         self.scroll_x = player.pos_x -12##scroll still broken
         self.scroll_y = new_y = player.pos_y -12
@@ -171,8 +189,4 @@ class map():
             self.scroll_x = 0
         if self.scroll_y < 0:
             self.scroll_y = 0
-        
-        print "player pos is ",player.pos_x,", ",player.pos_y#debug
-        print "scroll is ", self.scroll_x,", ",self.scroll_y#debug
-    
     

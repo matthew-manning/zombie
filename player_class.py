@@ -1,5 +1,6 @@
 import pygame
 import random
+import armour
 
 
 class player():
@@ -19,6 +20,7 @@ class player():
         self.strength = 2
         
         self.armour = {"chest":False, "halmet":False, "legs":False, "shield":None}
+        self.armour_val = 1
         self.weapons = ["claws","claws"]#just the str, "pistol" or "axe" 
         
         
@@ -37,6 +39,7 @@ class zombie():
         self.rugg_points = 4
         self.move_left = self.max_speed
         self.armour = {"chest":False, "halmet":False, "legs":False, "shield":None}
+        self.armour_val = 1
         self.weapons = []#just the str, "pistol" or "axe" 
         self.pos_x = x
         self.pos_y = y
@@ -57,7 +60,13 @@ class zombie():
             square_occupied.creture = None
             print "zombie dies!"
     
+
+def chest_armour_zombie(x,y):
+    return_zombie = zombie(x,y)
     
+    armour.put_on_chest(return_zombie)
+    return_zombie.drop = "chest"
+    return_zombie.avatar = pygame.image.load("graphics/zombie_chest_arm.png")
     
-    
+    return return_zombie
     
