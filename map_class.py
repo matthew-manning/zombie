@@ -36,7 +36,7 @@ class map():
         self.squares = seg_array(self.size_x, self.size_y)
         
 
-    def gen_map(self, wall_prob, monster_list, monster_prob):
+    def gen_map(self, wall_prob, monster_list, monster_prob,game_in):
         ##wall prob int from 0 to 100
         
         for x in range(0, self.size_x):
@@ -61,8 +61,12 @@ class map():
                         
                         monster_index = min(misc_fun.get_great_or_eq(monster_list.keys(), monster_int))
                         
-                        spawn_square.creture = monster_list[monster_index](x,y)
+                        spawned_creture = monster_list[monster_index](x,y)
                         
+                        spawn_square.creture = spawned_creture
+                        
+                        game_in.cretures.append(spawned_creture)
+                        #adds creture to map's data 
                         
                         
                 
@@ -167,7 +171,7 @@ class map():
             return "failed"
         
     
-    def move_player(self, player, heading, distance = 1):
+    def move_player(self, player, heading, game_in, distance = 1):
         
         if distance < 0:
             return "failed"
@@ -179,6 +183,16 @@ class map():
             
             if return_val == "failed":
                 break
+            ##########
+            
+            #redrawing the screen
+            game_in.screen.fill((255,255,255))
+            game_in.draw()
+            pygame.display.flip()
+            #waiting for 0.20 seconds
+            time.sleep(0.20)
+            ###########
+            
             
         
         self.scroll_x = player.pos_x -12##scroll still broken

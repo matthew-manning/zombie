@@ -6,8 +6,10 @@ import misc_fun
 recognized_command_ids = ("n","ne","e","se","nw","s","sw","w","sw","atk")
 
     
-def commands(map_in, player_in, command):
+def commands(game_in, command):
     #command is str
+    map_in = game_in.map_data
+    player_in = game_in.player
     
     command_id = misc_fun.get_until_space(command)
     #the first part ie sw,attack,swap, etc
@@ -30,7 +32,7 @@ def commands(map_in, player_in, command):
                     
                 distance = int(distance)
                 #if the distance is int not float or char
-                map_in.move_player(player_in, command_id, distance)
+                map_in.move_player(player_in, command_id,game_in, distance)
                 
         ###################################################################attacking
         elif command_id == "atk":
